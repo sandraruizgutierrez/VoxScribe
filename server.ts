@@ -3,6 +3,7 @@ import path from "path";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 import { createServer as createViteServer } from "vite";
+import multer from "multer";
 
 dotenv.config();
 
@@ -12,6 +13,9 @@ const PORT = process.env.PORT || 3000;
 // Increase limit to allow audio uploads up to 10MB
 app.use(express.json({ limit: "15mb" }));
 app.use(express.urlencoded({ limit: "15mb", extended: true }));
+
+// Configure multer for file uploads
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Initialize Gemini SDK with User-Agent header as per guidelines
 const ai = new GoogleGenAI({
@@ -107,6 +111,39 @@ app.post("/api/ai/transcribe-file", async (req, res) => {
   } catch (error: any) {
     console.error("Error en la transcripción multimodal:", error);
     res.status(500).json({ error: "No se pudo transcribir el audio. Verifica que sea un formato de audio soportado (webm, wav, ogg, mp3, m4a)." });
+  }
+});
+
+// Endpoint for Chrome extension - transcribe from multipart/form-data
+app.post("/api/transcribe", upload.single("audio"), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "Se requiere un archivo de audio." });
+  }
+
+  try {
+    // Convert buffer to base64
+    const audioBase64 = req.file.buffer.toString("base64");
+
+    const audioPart = {
+      inlineData: {
+        mimeType: req.file.mimetype || "audio/wav",
+        data: audioBase64,
+      },
+    };
+
+    const textPart = {
+      text: "Transcribe literalmente y con máxima precisión el discurso contenido en este audio. Detecta el idioma y genera la transcripción en su idioma nativo original. Devuelve única y exclusivamente la transcripción exacta sin preámbulos, notas de autor o comentarios explicativos.",
+    };
+
+    const response = await ai.models.generateContent({
+      model: "gemini-3.5-flash",
+      contents: { parts: [audioPart, textPart] },
+    });
+
+    res.json({ transcript: response.text });
+  } catch (error: any) {
+    console.error("Error en la transcripción:", error);
+    res.status(500).json({ error: "No se pudo transcribir el audio. Intenta de nuevo." });
   }
 });
 

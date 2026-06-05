@@ -1,0 +1,11 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="16" height="16" rx="3" fill="url(#grad)"/>
+  <path d="M8 3C8.55228 3 9 3.44772 9 4V8C9 8.55228 8.55228 9 8 9C7.44772 9 7 8.55228 7 8V4C7 3.44772 7.44772 3 8 3Z" fill="white"/>
+  <path d="M5 8C5 6.89543 5.89543 6 7 6V5C4.79086 5 3 6.79086 3 9C3 10.1831 3.63953 11.2135 4.59995 11.7604V13H5.77778V11.7604C6.73815 11.2135 7.37778 10.1831 7.37778 9H6.37778C6.37778 9.70435 5.80435 10.2778 5 10.2778C4.19565 10.2778 3.62222 9.70435 3.62222 9C3.62222 8.29565 4.19565 7.72222 5 7.72222V6.72222C4.19565 6.72222 3.62222 7.29565 3.62222 8C3.62222 8.70435 4.19565 9.27778 5 9.27778V8Z" fill="white"/>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="16" y2="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+  </defs>
+</svg>
