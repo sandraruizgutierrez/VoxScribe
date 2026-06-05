@@ -3,5 +3,7 @@
   "outputDirectory": "dist",
   "env": {
     "NODE_ENV": "production"
-  }
+  },
+  "devCommand": "npm run dev",
+  "installCommand": "npm install"
 }
