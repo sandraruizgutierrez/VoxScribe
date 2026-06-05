@@ -147,7 +147,8 @@ async function transcribeAudio(audioBlob, language) {
     formData.append('audio', audioBlob, 'recording.wav');
     formData.append('language', language);
 
-    const serverUrl = 'https://voxscribe.vercel.app';
+    // Use localhost for local development
+    const serverUrl = 'http://localhost:3000';
     const response = await fetch(`${serverUrl}/api/transcribe`, {
       method: 'POST',
       body: formData

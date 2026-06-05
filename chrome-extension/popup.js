@@ -72,8 +72,10 @@ async function transcribeAudio(audioBlob) {
     formData.append('audio', audioBlob, 'recording.wav');
     formData.append('language', languageSelect.value);
 
-    // Use the server URL - can be local or Vercel
-    const serverUrl = 'https://voxscribe.vercel.app';
+    // Use localhost for local development (you need to run: npm run dev)
+    // OR use Vercel when it's properly configured
+    const serverUrl = 'http://localhost:3000';
+
     const response = await fetch(`${serverUrl}/api/transcribe`, {
       method: 'POST',
       body: formData
