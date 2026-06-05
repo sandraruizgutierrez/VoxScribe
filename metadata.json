@@ -1,0 +1,10 @@
+{
+  "name": "Dictado a Texto",
+  "description": "Aplicación avanzada para dictar por voz y transcribir en tiempo real, con herramientas de inteligencia artificial para pulir, resumir y dar formato al texto.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
