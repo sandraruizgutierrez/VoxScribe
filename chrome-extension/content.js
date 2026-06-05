@@ -104,7 +104,13 @@ async function startRecording() {
     floatingButton.classList.add('recording');
     showToast('Grabando...');
   } catch (error) {
-    showToast('Error: ' + error.message);
+    if (error.name === 'NotAllowedError') {
+      showToast('Permiso de micrófono denegado. Revisa configuración.');
+    } else if (error.name === 'NotFoundError') {
+      showToast('No se encontró micrófono en tu dispositivo.');
+    } else {
+      showToast('Error: ' + error.message);
+    }
     console.error('Error al acceder al micrófono:', error);
   }
 }

@@ -35,7 +35,13 @@ async function startRecording() {
 
     mediaRecorder.start();
   } catch (error) {
-    statusDiv.textContent = 'Error: ' + error.message;
+    if (error.name === 'NotAllowedError') {
+      statusDiv.textContent = 'Permiso de micrófono denegado';
+    } else if (error.name === 'NotFoundError') {
+      statusDiv.textContent = 'No se encontró micrófono';
+    } else {
+      statusDiv.textContent = 'Error: ' + error.message;
+    }
     console.error('Error al acceder al micrófono:', error);
   }
 }
